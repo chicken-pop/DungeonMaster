@@ -11,6 +11,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private int height = 20;
 
+    //追加
+    [SerializeField]
+    private GameObject player;
+
     // DungeonMapのタイプを選定する
     private enum DungeonMapType
     {
@@ -254,6 +258,7 @@ public class MapGenerator : MonoBehaviour
                 if (map[x, y] == (int)DungeonMapType.StartPos)
                 {
                     OuterTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[2]);
+                    Instantiate(player, new Vector3Int(x, y, 0), Quaternion.identity);  //追加
                 }
                 if (map[x, y] == (int)DungeonMapType.NextStagePos)
                 {

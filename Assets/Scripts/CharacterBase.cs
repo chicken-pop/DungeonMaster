@@ -23,6 +23,7 @@ public class CharacterBase : MonoBehaviour
     private const string Walk = "Walk";
     private const string Attack = "Attack";
 
+
     private void Awake()
     {
         characterAnimator = this.gameObject.GetComponentInChildren<Animator>();
@@ -81,6 +82,7 @@ public class CharacterBase : MonoBehaviour
 
         Arrows = Arrow.Invalide;
 
+        //’Ç‰Á
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AnimationAttack();
@@ -101,6 +103,7 @@ public class CharacterBase : MonoBehaviour
         characterAnimator.SetTrigger("Clicked");
     }
 
+    //’Ç‰Á
     void AnimationAttack()
     {
         characterAnimator.SetBool(Attack, true);
@@ -109,10 +112,12 @@ public class CharacterBase : MonoBehaviour
         
     }
 
+    //’Ç‰Á
     IEnumerator OneAttack()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.3f);
         characterAnimator.SetBool(Attack, false);
+        characterAnimator.SetTrigger("Clicked");
     }
 
     private bool CheckPos(Vector3 vec)
@@ -123,6 +128,7 @@ public class CharacterBase : MonoBehaviour
         }
         return true;
     }
+
 
 
 }
