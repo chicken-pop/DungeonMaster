@@ -12,8 +12,11 @@ public class MapGenerator : MonoBehaviour
     private int height = 20;
 
     //追加
-    [SerializeField]
-    private GameObject player;
+    //[SerializeField]
+    //private GameObject player;
+    public static Vector3 PlayerStartPos;
+
+    public static Vector3 EnemyPos;
 
     // DungeonMapのタイプを選定する
     private enum DungeonMapType
@@ -37,6 +40,8 @@ public class MapGenerator : MonoBehaviour
 
 
     public Tile[] Tiles = new Tile[5];
+
+    public RuleTile potion;
 
     // mapは外からアクセスはできるが、このクラス以外でセットすることができなくする
     public static int[,] map
@@ -94,6 +99,8 @@ public class MapGenerator : MonoBehaviour
         // Portionの場所もランダムで決める
         var portionPos = rand.Next(reqFloorAmount);
 
+        var enemyPos = rand.Next(reqFloorAmount); //追加
+
         // カウントを0からスタートさせたいので-1からカウントアップさせていく。
         var posCount = -1;
         // GetUpperBound(0)はその次元の最後の値の場所を返す
@@ -108,6 +115,7 @@ public class MapGenerator : MonoBehaviour
                     if (posCount == startPos)
                     {
                         map[x, y] = (int)DungeonMapType.StartPos;
+                        PlayerStartPos = new Vector3Int(x, y, 0); //追加
                     }
                     if (posCount == nextStagePos)
                     {
@@ -116,6 +124,10 @@ public class MapGenerator : MonoBehaviour
                     if (posCount == portionPos)
                     {
                         map[x, y] = (int)DungeonMapType.Portion;
+                    }
+                    if (posCount == enemyPos)
+                    {
+                        EnemyPos = new Vector3Int(x, y, 0);
                     }
                 }
             }
@@ -258,7 +270,7 @@ public class MapGenerator : MonoBehaviour
                 if (map[x, y] == (int)DungeonMapType.StartPos)
                 {
                     OuterTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[2]);
-                    Instantiate(player, new Vector3Int(x, y, 0), Quaternion.identity);  //追加
+                    //Instantiate(player, new Vector3Int(x, y, 0), Quaternion.identity);  //追加
                 }
                 if (map[x, y] == (int)DungeonMapType.NextStagePos)
                 {
@@ -267,7 +279,7 @@ public class MapGenerator : MonoBehaviour
 
                 if (map[x, y] == (int)DungeonMapType.Portion)
                 {
-                    OuterTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[4]);
+                    OuterTilemap.SetTile(new Vector3Int(x, y, 0), potion);
                     GroundeTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[0]);
                 }
             }
