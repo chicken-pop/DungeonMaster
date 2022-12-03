@@ -11,11 +11,9 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private int height = 20;
 
-    //追加
-    //[SerializeField]
-    //private GameObject player;
     public static Vector3 PlayerStartPos;
 
+    //Enemyのスタート位置
     public static Vector3 EnemyPos;
 
     // DungeonMapのタイプを選定する
