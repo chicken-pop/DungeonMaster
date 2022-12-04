@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,6 +23,11 @@ public class CharacterBase : MonoBehaviour
     private const string Walk = "Walk";
     private const string Attack = "Attack";
 
+    protected bool IsAttack = false;
+
+    private float animationNormalizedTime = 0;
+
+    private Vector3Int characterDirection = Vector3Int.zero;
 
     private void Awake()
     {
@@ -44,7 +49,7 @@ public class CharacterBase : MonoBehaviour
                 break;
 
             case Arrow.Left:
-                //���Ɉړ�
+                //左に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.left))
                 {
                     this.transform.position += Vector3Int.left;
@@ -53,7 +58,7 @@ public class CharacterBase : MonoBehaviour
                 break;
 
             case Arrow.Up:
-                //��Ɉړ�
+                //上に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.up))
                 {
                     this.transform.position += Vector3Int.up;
@@ -62,7 +67,7 @@ public class CharacterBase : MonoBehaviour
                 break;
 
             case Arrow.Right:
-                //�E�Ɉړ�
+                //右に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.right))
                 {
                     this.transform.position += Vector3Int.right;
@@ -71,7 +76,7 @@ public class CharacterBase : MonoBehaviour
                 break;
 
             case Arrow.Down:
-                //���Ɉړ�
+                //下に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.down))
                 {
                     this.transform.position += Vector3Int.down;
@@ -82,14 +87,17 @@ public class CharacterBase : MonoBehaviour
 
         Arrows = Arrow.Invalide;
 
-        //�ǉ�
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (IsAttack)
         {
-            AnimationAttack();
+            AnimationExecution(Attack, characterDirection);
+            IsAttack = false;
         }
+        
+        animationNormalizedTime = characterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        Debug.Log($"{this.gameObject.name}{animationNormalizedTime}");
     }
 
-    //�p���悪���肵�Ă���Ƃ��ipublic�ł��ł��邯�ǁc�j
+    //継承先が限定しているとき（publicでもできるけど…）
     protected void SetArrowState(Arrow arrow)
     {
         Arrows = arrow;
@@ -101,24 +109,24 @@ public class CharacterBase : MonoBehaviour
         characterAnimator.SetFloat("X", direction.x);
         characterAnimator.SetFloat("Y", direction.y);
         characterAnimator.SetTrigger("Clicked");
+        if (animationName == Attack)
+        {
+            StartCoroutine(AttackAnimationEnd());
+        }
+        else {// ただの移動なら攻撃のモーションを即座にキャンセル
+            characterAnimator.SetBool(Attack, false);
+            characterAnimator.SetTrigger("Clicked");
+        }
     }
 
-    //�ǉ�
-    void AnimationAttack()
+    private IEnumerator AttackAnimationEnd()
     {
-        characterAnimator.SetBool(Attack, true);
-        characterAnimator.SetTrigger("Clicked");
-        StartCoroutine(OneAttack());
-        
-    }
-
-    //�ǉ�
-    IEnumerator OneAttack()
-    {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitUntil(()=>animationNormalizedTime > 1);
         characterAnimator.SetBool(Attack, false);
         characterAnimator.SetTrigger("Clicked");
     }
+     
+
 
     private bool CheckPos(Vector3 vec)
     {

@@ -41,6 +41,8 @@ public class MapGenerator : MonoBehaviour
 
     public RuleTile potion;
 
+    public RuleTile exit;
+
     // mapは外からアクセスはできるが、このクラス以外でセットすることができなくする
     public static int[,] map
     {
@@ -268,11 +270,10 @@ public class MapGenerator : MonoBehaviour
                 if (map[x, y] == (int)DungeonMapType.StartPos)
                 {
                     OuterTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[2]);
-                    //Instantiate(player, new Vector3Int(x, y, 0), Quaternion.identity);  //追加
                 }
                 if (map[x, y] == (int)DungeonMapType.NextStagePos)
                 {
-                    OuterTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[3]);
+                    OuterTilemap.SetTile(new Vector3Int(x, y, 0), exit);
                 }
 
                 if (map[x, y] == (int)DungeonMapType.Portion)

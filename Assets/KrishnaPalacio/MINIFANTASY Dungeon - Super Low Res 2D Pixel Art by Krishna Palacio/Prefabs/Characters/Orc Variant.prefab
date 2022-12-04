@@ -7,9 +7,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3071884272819006479, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5720277353491606258, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
       propertyPath: m_Name
-      value: Orc
+      value: Orc Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5720277353491606258, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
       propertyPath: m_IsActive
@@ -70,6 +74,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5720277353491606258, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
   m_PrefabInstance: {fileID: 3589030954969761249}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-5870494359505216020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127755556156518163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 941d7ad9c8385b34996a3e40eb73b37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Arrows: 0
 --- !u!114 &216669376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,17 +99,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb1911cb757cf54ea62282550ee0950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoint: 30
-  attackPoint: 5
---- !u!114 &216669379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9127755556156518163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 941d7ad9c8385b34996a3e40eb73b37e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  hitPoint: 10
+  attackPoint: 3
