@@ -103,6 +103,13 @@ public class CharacterBase : MonoBehaviour
         Arrows = arrow;
     }
 
+    public void LookToDirection(Vector3Int direction)
+    {
+        characterAnimator.SetFloat("X", direction.x);
+        characterAnimator.SetFloat("Y", direction.y);
+    }
+
+
     private void AnimationExecution(string animationName,Vector3Int direction)
     {
         characterAnimator.SetBool(animationName, true);

@@ -53,7 +53,7 @@ public class MapGenerator : MonoBehaviour
     private int privateA = 0;
     internal int internalA = 0;
     enum Count { ZERO = 0, ONE = 1 }
-    private void Start()
+    private void Awake()
     {
         // map‚ğì¬‚·‚é
         map = new int[width, height];
