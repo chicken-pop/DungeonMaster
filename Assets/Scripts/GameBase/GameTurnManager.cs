@@ -8,7 +8,7 @@ public class GameTurnManager : MonoBehaviour
 
     public static void PlayerActionTurnExecution()
     {
-        Debug.Log("aaaaaaa");
+       
         playerAction = true;
     }
 

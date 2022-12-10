@@ -1,19 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyParameterBase : MonoBehaviour
+public class EnemyParameterBase : CharacterParameterBase
 {
-    public CharacterParameterBase EnemyParameter;
+    [SerializeField]
+    private float enemyHitPoint;
 
     [SerializeField]
-    private int hitPoint;
+    private float enemyAttackPoint;
 
-    [SerializeField]
-    private int attackPoint;
+    public float GetEnemyAttackPoint
+    {
+        get { return enemyAttackPoint; }
+    }
 
     private void Awake()
     {
-        EnemyParameter = new CharacterParameterBase(hitPoint, attackPoint);
+        base.HitPoint = enemyAttackPoint;
+        base.maxHitPoint = base.HitPoint;
+        base.AttackPoint = enemyAttackPoint;
     }
 }
+

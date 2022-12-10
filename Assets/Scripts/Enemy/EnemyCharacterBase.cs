@@ -9,10 +9,19 @@ public class EnemyCharacterBase :  CharacterBase
     private int chaseDirection = 0;
     float playerDiff = 10f;
 
+    private void Start()
+    {
+        this.transform.position = MapGenerator.EnemyPos[0];
+        base.isEnemy = true;
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
+
         if (collision.gameObject.GetComponent<PlayerParameterBase>())
         {
+            Debug.Log("aaa");
+
             isChase = true;
             Vector3 v = (collision.transform.position - this.transform.position).normalized;
             playerDiff = (collision.transform.position - this.transform.position).magnitude;
@@ -46,13 +55,16 @@ public class EnemyCharacterBase :  CharacterBase
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerParameterBase>())
         {
             isChase = false;
+
+            Debug.Log("bbb");
         }
     }
+
     public override void Update()
     {
         if (GameTurnManager.playerAction)
@@ -80,10 +92,10 @@ public class EnemyCharacterBase :  CharacterBase
                     base.SetArrowState(Arrow.Up);
                     break;
                 case 2:
-                    base.SetArrowState(Arrow.Down);
+                    base.SetArrowState(Arrow.Right);
                     break;
                 case 3:
-                    base.SetArrowState(Arrow.Right);
+                    base.SetArrowState(Arrow.Down);
                     break;
             }
         }

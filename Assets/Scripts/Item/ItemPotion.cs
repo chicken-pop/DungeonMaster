@@ -23,7 +23,7 @@ public class ItemPotion : MonoBehaviour
         if (collision.gameObject.GetComponent<PlayerParameterBase>())
         {
             var playerParam = collision.gameObject.GetComponent<PlayerParameterBase>();
-            playerParam.PlayerParameter.Heal(Potion.GetHealAmount);
+            playerParam.Heal(Potion.GetHealAmount);
 
             var transformInt = Vector3Int.FloorToInt(this.transform.position);
             StartCoroutine(EraseItemPotionTile(transformInt));

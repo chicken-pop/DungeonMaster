@@ -6,19 +6,14 @@ public class EnemyGenerater : MonoBehaviour
 {
 
     [SerializeField]
-    private GameObject[] Enemy;
+    private GameObject Enemy;
 
-    private void Start()
+    public void EnemySpawn()
     {
-       StartCoroutine(enemyInstantiate());
-        Debug.Log(MapGenerator.EnemyPos);
-    }
-
-    IEnumerator enemyInstantiate() { 
-         yield return new WaitWhile(()=>MapGenerator.EnemyPos == Vector3.zero);
-        yield return new WaitUntil(()=>MapGenerator.EnemyPos != Vector3.zero);
-         Instantiate(Enemy[0], MapGenerator.EnemyPos, Quaternion.identity);
-
-        
+        foreach (var pos in MapGenerator.EnemyPos)
+        {
+            var enemy = Instantiate(Enemy);
+            enemy.transform.position = pos;
         }
+    }
 }

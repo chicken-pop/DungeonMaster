@@ -21,6 +21,7 @@ public class CharacterBase : MonoBehaviour
     private Animator characterAnimator = null;
 
     private const string Walk = "Walk";
+
     private const string Attack = "Attack";
 
     protected bool IsAttack = false;
@@ -28,6 +29,10 @@ public class CharacterBase : MonoBehaviour
     private float animationNormalizedTime = 0;
 
     private Vector3Int characterDirection = Vector3Int.zero;
+
+    private string currentAnimationName = string.Empty;
+
+    protected bool isEnemy = false;
 
     private void Awake()
     {
@@ -52,8 +57,9 @@ public class CharacterBase : MonoBehaviour
                 //左に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.left))
                 {
+                    characterDirection = Vector3Int.left;
                     this.transform.position += Vector3Int.left;
-                    AnimationExecution(Walk, Vector3Int.left);
+                    AnimationExecution(Walk, characterDirection);
                 }
                 break;
 
@@ -61,8 +67,9 @@ public class CharacterBase : MonoBehaviour
                 //上に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.up))
                 {
-                    this.transform.position += Vector3Int.up;
-                    AnimationExecution(Walk, Vector3Int.up);
+                    characterDirection = Vector3Int.up;
+                    this.transform.position += characterDirection;
+                    AnimationExecution(Walk, characterDirection);
                 }
                 break;
 
@@ -70,8 +77,9 @@ public class CharacterBase : MonoBehaviour
                 //右に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.right))
                 {
-                    this.transform.position += Vector3Int.right;
-                    AnimationExecution(Walk, Vector3Int.right);
+                    characterDirection = Vector3Int.right;
+                    this.transform.position += characterDirection;
+                    AnimationExecution(Walk, characterDirection);
                 }
                 break;
 
@@ -79,8 +87,9 @@ public class CharacterBase : MonoBehaviour
                 //下に移動
                 if (CheckPos(FloorToIntPos += Vector3Int.down))
                 {
-                    this.transform.position += Vector3Int.down;
-                    AnimationExecution(Walk, Vector3Int.down);
+                    characterDirection = Vector3Int.down;
+                    this.transform.position += characterDirection;
+                    AnimationExecution(Walk, characterDirection);
                 }
                 break;
         }
@@ -94,7 +103,7 @@ public class CharacterBase : MonoBehaviour
         }
         
         animationNormalizedTime = characterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        Debug.Log($"{this.gameObject.name}{animationNormalizedTime}");
+       
     }
 
     //継承先が限定しているとき（publicでもできるけど…）
@@ -112,13 +121,14 @@ public class CharacterBase : MonoBehaviour
 
     private void AnimationExecution(string animationName,Vector3Int direction)
     {
+        currentAnimationName = animationName;
         characterAnimator.SetBool(animationName, true);
         characterAnimator.SetFloat("X", direction.x);
         characterAnimator.SetFloat("Y", direction.y);
         characterAnimator.SetTrigger("Clicked");
         if (animationName == Attack)
         {
-            StartCoroutine(AttackAnimationEnd());
+            StartCoroutine(AttackAnimationExecution());
         }
         else {// ただの移動なら攻撃のモーションを即座にキャンセル
             characterAnimator.SetBool(Attack, false);
@@ -126,13 +136,44 @@ public class CharacterBase : MonoBehaviour
         }
     }
 
-    private IEnumerator AttackAnimationEnd()
+
+
+    // 攻撃のアニメーションの時にダメージを負わせる実装
+    private IEnumerator AttackAnimationExecution()
     {
-        yield return new WaitUntil(()=>animationNormalizedTime > 1);
+        var opponentFace = Vector3.zero;
+        opponentFace = characterDirection;
+        // アニメーションの途中で
+        yield return new WaitUntil(() => animationNormalizedTime > 0.5f);
+
+        if (isEnemy)
+        {
+            // 敵の場合はプレイヤーに対して当てるRayを放つ
+            int layerNo = LayerMask.NameToLayer("Player");
+            // マスクへの変換（ビットシフト）
+            int layerMask = 1 << layerNo;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, opponentFace, 1.5f, layerMask);
+            if (hit.collider != null)
+            {
+                hit.transform.GetComponent<CharacterParameterBase>().Damage(this.GetComponent<EnemyParameterBase>().GetEnemyAttackPoint);
+            }
+        }
+        else
+        {
+
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, opponentFace, 2f);
+            if (hit.collider != null)
+            {
+                hit.transform.GetComponent<CharacterParameterBase>().Damage(this.GetComponent<PlayerParameterBase>().GetPlayerAttackPoint);
+            }
+        }
+
+
+        yield return new WaitUntil(() => animationNormalizedTime > 1);
         characterAnimator.SetBool(Attack, false);
         characterAnimator.SetTrigger("Clicked");
     }
-     
+
 
 
     private bool CheckPos(Vector3 vec)

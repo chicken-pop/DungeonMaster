@@ -1,16 +1,10 @@
-public class CharacterParameterBase
+using UnityEngine;
+
+public class CharacterParameterBase : MonoBehaviour
 {
-    public float HitPoint;
-    private float maxHitPoint;
-    public float AttackPoint;
-
-    public CharacterParameterBase(float hitPoint,float attackPoint)
-    {
-        this.HitPoint = hitPoint;
-        this.maxHitPoint = this.HitPoint;
-        this.AttackPoint = attackPoint;
-    }
-
+    protected float HitPoint;
+    protected float maxHitPoint;
+    protected float AttackPoint;
 
     public void Damage(float damagePoint)
     {
@@ -26,7 +20,7 @@ public class CharacterParameterBase
         this.HitPoint += healPoint;
         if (this.HitPoint > this.maxHitPoint)
         {
-            this.HitPoint = maxHitPoint;
+            this.HitPoint = this.maxHitPoint;
         }
     }
 }

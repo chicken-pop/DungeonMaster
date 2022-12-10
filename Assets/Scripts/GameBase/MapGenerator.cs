@@ -11,11 +11,6 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private int height = 20;
 
-    public static Vector3 PlayerStartPos;
-
-    //Enemyのスタート位置
-    public static Vector3 EnemyPos;
-
     // DungeonMapのタイプを選定する
     private enum DungeonMapType
     {
@@ -29,13 +24,13 @@ public class MapGenerator : MonoBehaviour
 
     private int reqFloorAmount = 0;
 
-    //地面を描画するためのtilemap
+    [Tooltip("The Tilemap to draw onto")]
+    //地面を描画するためのtilemap(Collision無)
     public Tilemap GroundeTilemap;
-    //壁を描画するためのtilemap
+    //壁を描画するためのtilemap(Collision有)
     public Tilemap WallTilemap;
-    //アイテムなどを描画するためのtilemap
+    //アイテムなどを描画するためのtilemap(Collision有)
     public Tilemap OuterTilemap;
-
 
     public Tile[] Tiles = new Tile[5];
 
@@ -49,10 +44,14 @@ public class MapGenerator : MonoBehaviour
         get;
         private set;
     }
-    [SerializeField]
-    private int privateA = 0;
-    internal int internalA = 0;
-    enum Count { ZERO = 0, ONE = 1 }
+
+    //Playerのスタート位置
+    public static Vector2 StartPos = Vector2.zero;
+
+    //Enemyのスタート位置
+    public static List<Vector2> EnemyPos = new List<Vector2>();
+
+
     private void Awake()
     {
         // mapを作成する
@@ -68,8 +67,8 @@ public class MapGenerator : MonoBehaviour
                 map[x, y] = (int)DungeonMapType.Wall;
             }
         }
-        // seedを決めます。Randomにしたい場合はTime.timeなどが一般的。
-        float seed = 1f;
+        // seedを決めます。Randomにしたい場合はTime.time。
+        float seed = Time.time;
         map = RandomWalkCave(map, seed, 50);
 
         // スタート位置と決めます
@@ -99,7 +98,7 @@ public class MapGenerator : MonoBehaviour
         // Portionの場所もランダムで決める
         var portionPos = rand.Next(reqFloorAmount);
 
-        var enemyPos = rand.Next(reqFloorAmount); //追加
+        var enemyPos = rand.Next(reqFloorAmount); 
 
         // カウントを0からスタートさせたいので-1からカウントアップさせていく。
         var posCount = -1;
@@ -115,7 +114,7 @@ public class MapGenerator : MonoBehaviour
                     if (posCount == startPos)
                     {
                         map[x, y] = (int)DungeonMapType.StartPos;
-                        PlayerStartPos = new Vector3Int(x, y, 0); //追加
+                        StartPos = new Vector2(x, y); 
                     }
                     if (posCount == nextStagePos)
                     {
@@ -127,13 +126,18 @@ public class MapGenerator : MonoBehaviour
                     }
                     if (posCount == enemyPos)
                     {
-                        EnemyPos = new Vector3Int(x, y, 0);
+                        EnemyPos.Add(new Vector2(x, y));
                     }
                 }
             }
         }
 
         RenderMap(map);
+
+    }
+    private void Start()
+    {
+        this.GetComponent<EnemyGenerater>().EnemySpawn();
     }
 
     /// <summary>
@@ -148,14 +152,14 @@ public class MapGenerator : MonoBehaviour
         //Seed our random
         rand = new System.Random(seed.GetHashCode());
         //Define our start x position
-        int floorX = rand.Next(1, map.GetUpperBound(0) - 1);
+        int floorX = rand.Next(1, width - 1);
 
         //Define our start y position
         // rand.Nextは引数までの整数を返す。
-        int floorY = rand.Next(1, map.GetUpperBound(1) - 1);
+        int floorY = rand.Next(1, height - 1);
         //Determine our required floorAmount
         // 以下の計算は[20,20] 、requiredFloorPercentが50だと(20*20*50)/100=200マスとなる
-        reqFloorAmount = (((map.GetUpperBound(1) + 1) * (map.GetUpperBound(0) + 1)) * requiredFloorPercent) / 100;
+        reqFloorAmount = (width * height * requiredFloorPercent) / 100;
 
         //Used for our while loop, when this reaches our reqFloorAmount we will stop tunneling
         int floorCount = 0;
@@ -279,6 +283,7 @@ public class MapGenerator : MonoBehaviour
                 if (map[x, y] == (int)DungeonMapType.Portion)
                 {
                     OuterTilemap.SetTile(new Vector3Int(x, y, 0), potion);
+                    // OuterTilemap.
                     GroundeTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[0]);
                 }
             }

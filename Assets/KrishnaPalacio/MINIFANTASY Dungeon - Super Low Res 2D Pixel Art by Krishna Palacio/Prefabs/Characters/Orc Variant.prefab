@@ -74,6 +74,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5720277353491606258, guid: 4843c6294db27f84bb07ff202205e1ea, type: 3}
   m_PrefabInstance: {fileID: 3589030954969761249}
   m_PrefabAsset: {fileID: 0}
+--- !u!50 &8375121399008042624
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127755556156518163}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &-2721207470962459082
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -112,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941d7ad9c8385b34996a3e40eb73b37e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Arrows: -1
+  Arrows: 0
 --- !u!114 &216669376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb1911cb757cf54ea62282550ee0950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoint: 10
-  attackPoint: 3
+  enemyHitPoint: 10
+  enemyAttackPoint: 5
