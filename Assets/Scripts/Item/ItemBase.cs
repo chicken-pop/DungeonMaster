@@ -1,5 +1,9 @@
+/// <summary>
+/// アイテムの基本的な情報をもつスクリプト
+/// </summary>
 public class ItemBase 
 {
+
     public enum ItemTypes
     {
         Invalide=-1,
@@ -9,6 +13,7 @@ public class ItemBase
 
     public string ItemName;
     public ItemTypes ItemType;
+
 
     public ItemBase(string itemName,ItemTypes itemType)
     {

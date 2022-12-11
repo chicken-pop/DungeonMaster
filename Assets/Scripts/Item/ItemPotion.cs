@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public class ItemPotion : MonoBehaviour
 {
     public PotionBase Potion;
+    
+    public PotionBase HighPotion;
 
     [SerializeField]
     private string potionName = string.Empty;
@@ -16,7 +18,7 @@ public class ItemPotion : MonoBehaviour
     private void Awake()
     {
         Potion = new PotionBase(potionName, ItemBase.ItemTypes.Potion,healAmount);
-    }
+        }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,7 +26,7 @@ public class ItemPotion : MonoBehaviour
         {
             var playerParam = collision.gameObject.GetComponent<PlayerParameterBase>();
             playerParam.Heal(Potion.GetHealAmount);
-
+            
             var transformInt = Vector3Int.FloorToInt(this.transform.position);
             StartCoroutine(EraseItemPotionTile(transformInt));
         }

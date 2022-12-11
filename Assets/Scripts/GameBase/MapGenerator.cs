@@ -41,6 +41,8 @@ public class MapGenerator : MonoBehaviour
 
     public RuleTile treasure;
 
+    //public RuleTile ClearStatue;
+
     // mapは外からアクセスはできるが、このクラス以外でセットすることができなくする
     public static int[,] map
     {
@@ -104,6 +106,9 @@ public class MapGenerator : MonoBehaviour
         var enemyPos = rand.Next(reqFloorAmount); 
 
         var trasurePos = rand.Next(reqFloorAmount);
+
+        //var clearStatuePos = rand.Next(reqFloorAmount);
+
 
         // カウントを0からスタートさせたいので-1からカウントアップさせていく。
         var posCount = -1;
