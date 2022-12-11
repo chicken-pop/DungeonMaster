@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class EnemyGenerater : MonoBehaviour
 {
+    public GameObject[] EnemyÅ@= new GameObject[2];
 
-    [SerializeField]
-    private GameObject Enemy;
-
-    public void EnemySpawn()
+    public void EnemySpawn(Vector2 spawnPos,EnemyParameterBase.EnemyType enemyType)
     {
         foreach (var pos in MapGenerator.EnemyPos)
         {
-            var enemy = Instantiate(Enemy);
-            enemy.transform.position = pos;
+            var enemy = Instantiate(Enemy[(int)enemyType]);
+            enemy.transform.position = spawnPos;
         }
     }
 }

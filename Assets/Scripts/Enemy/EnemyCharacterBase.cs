@@ -9,6 +9,8 @@ public class EnemyCharacterBase :  CharacterBase
     private int chaseDirection = 0;
     float playerDiff = 10f;
 
+    private int enemyActionCount = 0;
+
     private void Start()
     {
         this.transform.position = MapGenerator.EnemyPos[0];
@@ -67,8 +69,11 @@ public class EnemyCharacterBase :  CharacterBase
 
     public override void Update()
     {
-        if (GameTurnManager.playerAction)
+        if (GameTurnManager.playerActionCount != enemyActionCount)
         {
+            //++のことインクリメント、--のことディクリメント
+            enemyActionCount++;
+
             if (isChase)
             {
                 if(playerDiff <= 2)

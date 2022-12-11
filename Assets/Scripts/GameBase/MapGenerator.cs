@@ -146,7 +146,9 @@ public class MapGenerator : MonoBehaviour
     }
     private void Start()
     {
-        this.GetComponent<EnemyGenerater>().EnemySpawn();
+        this.GetComponent<EnemyGenerater>().EnemySpawn(EnemyPos.FirstOrDefault(), EnemyParameterBase.EnemyType.Normal);
+
+        StartCoroutine(SetHighOrcSpawn());
     }
 
     /// <summary>
@@ -301,7 +303,11 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+    }
 
-       
+    IEnumerator SetHighOrcSpawn()
+    {
+        yield return new WaitUntil(()=>GameTurnManager.playerActionCount > 10);
+        this.GetComponent<EnemyGenerater>().EnemySpawn(StartPos, EnemyParameterBase.EnemyType.High);
     }
 }

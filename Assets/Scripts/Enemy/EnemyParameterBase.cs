@@ -2,6 +2,13 @@ using UnityEngine;
 
 public class EnemyParameterBase : CharacterParameterBase
 {
+    public enum EnemyType
+    {
+        Invalide =-1,
+        Normal,
+        High
+    }
+
     [SerializeField]
     private float enemyHitPoint;
 
