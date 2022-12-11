@@ -58,6 +58,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    //instance‚ªˆê‚Â‚¾‚¯‚©Šm”FA‚·‚Å‚É‚ ‚Á‚½‚çÁ‚·
     private void RemoveDuplicates()
     {
         if (_instance == null)

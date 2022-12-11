@@ -3,7 +3,8 @@ public class ItemBase
     public enum ItemTypes
     {
         Invalide=-1,
-        Potion
+        Potion,
+        Treasure
     }
 
     public string ItemName;
