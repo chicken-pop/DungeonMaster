@@ -23,4 +23,5 @@ public class CharacterParameterBase : MonoBehaviour
             this.HitPoint = this.maxHitPoint;
         }
     }
+
 }

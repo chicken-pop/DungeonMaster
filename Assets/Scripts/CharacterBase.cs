@@ -24,6 +24,8 @@ public class CharacterBase : MonoBehaviour
 
     private const string Attack = "Attack";
 
+    private const string Die = "Die";
+
     protected bool IsAttack = false;
 
     private float animationNormalizedTime = 0;
@@ -36,9 +38,15 @@ public class CharacterBase : MonoBehaviour
 
     public bool isActive = true;
 
+    //追加
+    CharacterParameterBase characterParameter;
+
     private void Awake()
     {
         characterAnimator = this.gameObject.GetComponentInChildren<Animator>();
+
+        //仮追加
+        CharacterParameterBase characterParameter = GetComponent<CharacterParameterBase>();
     }
 
     public virtual void Update()
@@ -46,6 +54,31 @@ public class CharacterBase : MonoBehaviour
         if (!isActive)
         {
             return;
+        }
+
+        if (characterParameter.isDead())
+        {
+            if (isEnemy)
+            {
+                //敵の場合
+                //Deadのアニメーションをたたいて
+                characterAnimator.SetBool(Die, true);
+                characterAnimator.SetTrigger("Clicked");
+                
+                //アニメーションが終わったら消える
+            }
+            else
+            {
+                //プレイヤーの場合の場合
+                //Deadのアニメーションをたたいて
+                characterAnimator.SetBool(Die, true);
+                characterAnimator.SetTrigger("Clicked");
+                //アニメーションが終わったら
+                //リザルトに飛ぶ
+                SceneTranditionManager.Instance.SceneLoad("ResultScene");
+
+                return;
+            }
         }
        
         var FloorToIntPos = Vector3Int.FloorToInt(this.transform.position);

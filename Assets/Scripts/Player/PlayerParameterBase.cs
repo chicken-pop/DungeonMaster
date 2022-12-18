@@ -19,4 +19,9 @@ public class PlayerParameterBase : CharacterParameterBase
         base.maxHitPoint = base.HitPoint;
         base.AttackPoint = playerAttackPoint;
     }
+
+    public void isDead()
+    {
+        return;
+    }
 }
