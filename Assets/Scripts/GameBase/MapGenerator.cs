@@ -19,6 +19,7 @@ public class MapGenerator : MonoBehaviour
         StartPos = 2,
         Portion=3,
         Treasure=4,
+        Statu=5,
         NextStagePos = 999,
     }
     private System.Random rand = null;
@@ -33,13 +34,15 @@ public class MapGenerator : MonoBehaviour
     //アイテムなどを描画するためのtilemap(Collision有)
     public Tilemap OuterTilemap;
 
-    public Tile[] Tiles = new Tile[5];
+    public Tile[] Tiles = new Tile[6];
 
     public RuleTile potion;
 
     public RuleTile exit;
 
     public RuleTile treasure;
+
+    public RuleTile statue;
 
     //public RuleTile ClearStatue;
 
@@ -59,6 +62,7 @@ public class MapGenerator : MonoBehaviour
 
     private void Awake()
     {
+        EnemyPos.Clear();
         // mapを作成する
         map = new int[width, height];
         // mapを埋める
@@ -107,8 +111,7 @@ public class MapGenerator : MonoBehaviour
 
         var trasurePos = rand.Next(reqFloorAmount);
 
-        //var clearStatuePos = rand.Next(reqFloorAmount);
-
+        var statuePos = rand.Next(reqFloorAmount);
 
         // カウントを0からスタートさせたいので-1からカウントアップさせていく。
         var posCount = -1;
@@ -138,9 +141,13 @@ public class MapGenerator : MonoBehaviour
                     {
                         EnemyPos.Add(new Vector2(x, y));
                     }
-                      if (posCount == trasurePos)
+                    if (posCount == trasurePos)
                     {
                         map[x, y] = (int)DungeonMapType.Treasure;
+                    }
+                    if (posCount == trasurePos)
+                    {
+                        map[x, y] = (int)DungeonMapType.Statu;
                     }
                 }
             }
@@ -151,6 +158,7 @@ public class MapGenerator : MonoBehaviour
     }
     private void Start()
     {
+        Debug.Log("abc");
         this.GetComponent<EnemyGenerater>().EnemySpawn(EnemyPos.FirstOrDefault(), EnemyParameterBase.EnemyType.Normal);
 
         StartCoroutine(SetHighOrcSpawn());
@@ -306,6 +314,16 @@ public class MapGenerator : MonoBehaviour
                     OuterTilemap.SetTile(new Vector3Int(x, y, 0), treasure);
                     GroundeTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[0]);
                 }
+                if (map[x, y] == (int)DungeonMapType.Statu)
+                {
+                     GroundeTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[0]);
+                    if(DungeonHierarchyCounter.Instance.dungeonHierarchyCount % 5 == 0)
+                    {
+                        OuterTilemap.SetTile(new Vector3Int(x, y, 0), statue); 
+                    }
+                   
+                }
+                
             }
         }
     }
