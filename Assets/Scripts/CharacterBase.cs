@@ -34,6 +34,8 @@ public class CharacterBase : MonoBehaviour
 
     protected bool isEnemy = false;
 
+    public bool isActive = true;
+
     private void Awake()
     {
         characterAnimator = this.gameObject.GetComponentInChildren<Animator>();
@@ -41,6 +43,11 @@ public class CharacterBase : MonoBehaviour
 
     public virtual void Update()
     {
+        if (!isActive)
+        {
+            return;
+        }
+       
         var FloorToIntPos = Vector3Int.FloorToInt(this.transform.position);
 
         if (this.transform.position != FloorToIntPos)

@@ -317,7 +317,7 @@ public class MapGenerator : MonoBehaviour
                 if (map[x, y] == (int)DungeonMapType.Statu)
                 {
                      GroundeTilemap.SetTile(new Vector3Int(x, y, 0), Tiles[0]);
-                    if(DungeonHierarchyCounter.Instance.dungeonHierarchyCount % 5 == 0)
+                    if(DungeonHierarchyCounter.Instance.dungeonHierarchyCount % 5 == 0  || DungeonHierarchyCounter.Instance.dungeonHierarchyCount % 5 == 1)
                     {
                         OuterTilemap.SetTile(new Vector3Int(x, y, 0), statue); 
                     }

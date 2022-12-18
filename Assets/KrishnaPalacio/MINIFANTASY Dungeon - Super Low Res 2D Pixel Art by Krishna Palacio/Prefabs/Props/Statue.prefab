@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3347543616739314970}
   - component: {fileID: 3347543616739314965}
   - component: {fileID: 636800498181069085}
+  - component: {fileID: 6007882954472138922}
   m_Layer: 0
   m_Name: Statue
   m_TagString: Untagged
@@ -112,6 +113,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.75}
   m_EdgeRadius: 0
+--- !u!114 &6007882954472138922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3347543616739314971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1331d3cb9bee37438eafd9ac16db528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextModalPrefab: {fileID: 8844789078861033462, guid: 47befb17264a3d245af45833a2577c88, type: 3}
 --- !u!1 &5909338121308689329
 GameObject:
   m_ObjectHideFlags: 0
