@@ -6,6 +6,7 @@ public class DungeonMemoryManager : SingletonMonoBehaviour<DungeonMemoryManager>
 {
     private float playerHitPoint = 0f;
 
+    //プロパティ、外からゲットしたい
     public float GetPlayerHitPoint
     {
         get { return playerHitPoint; }

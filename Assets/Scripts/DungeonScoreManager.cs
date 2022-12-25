@@ -16,4 +16,9 @@ public class DungeonScoreManager : SingletonMonoBehaviour<DungeonScoreManager>
     {
         dungeonscore += addscore;
     }
+
+    public void DungeonScoreInit()
+    {
+        dungeonscore = 0;
+    }
 }
