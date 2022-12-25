@@ -123,6 +123,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &135512918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 135512920}
+  - component: {fileID: 135512919}
+  m_Layer: 0
+  m_Name: DungeonSoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &135512919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135512918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e75a0cfbd82ab48801ddd421081b43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMClips:
+  - {fileID: 8300000, guid: 7600417249a8ad94b95702cb453a7f7e, type: 3}
+  - {fileID: 8300000, guid: 7600417249a8ad94b95702cb453a7f7e, type: 3}
+  - {fileID: 8300000, guid: 7600417249a8ad94b95702cb453a7f7e, type: 3}
+  SEClips:
+  - {fileID: 8300000, guid: 5064c22e120f1a1429ec4c00487b1b09, type: 3}
+--- !u!4 &135512920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135512918}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,6 +189,7 @@ GameObject:
   - component: {fileID: 519420036}
   - component: {fileID: 519420035}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420037}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -312,6 +363,18 @@ MonoBehaviour:
   exit: {fileID: 11400000, guid: 80820e6932cdc4f4ea8a0d850030967b, type: 2}
   treasure: {fileID: 11400000, guid: 164caa52ce77ea74d85b16853145c3a5, type: 2}
   statue: {fileID: 11400000, guid: 70a5621b04e080f44b7ddcb99c6b4e49, type: 2}
+--- !u!114 &519420037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436242c3885d8364aa2ab04586bfd498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &544633393
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566b0e77f14ec1544b1ac906379cef67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHitPoint: 10
+  playerHitPoint: 30
   playerAttackPoint: 5
 --- !u!61 &1208628069
 BoxCollider2D:

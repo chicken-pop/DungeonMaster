@@ -158,7 +158,7 @@ public class MapGenerator : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log("abc");
+        
         this.GetComponent<EnemyGenerater>().EnemySpawn(EnemyPos.FirstOrDefault(), EnemyParameterBase.EnemyType.Normal);
 
         StartCoroutine(SetHighOrcSpawn());
