@@ -5,6 +5,20 @@ public class CharacterParameterBase : MonoBehaviour
     protected float HitPoint;
     protected float maxHitPoint;
     protected float AttackPoint;
+     public float GetAttackPoint
+    {
+        get { return AttackPoint; }
+    }
+
+    public float GetHitPoint
+    {
+        get { return HitPoint; }
+    }
+
+    public float GetMaxHitPoint
+    {
+        get { return maxHitPoint; }
+    }
 
     public void Damage(float damagePoint)
     {
@@ -23,5 +37,9 @@ public class CharacterParameterBase : MonoBehaviour
             this.HitPoint = this.maxHitPoint;
         }
     }
+
+   
+
+
 
 }

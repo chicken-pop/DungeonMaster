@@ -38,15 +38,12 @@ public class CharacterBase : MonoBehaviour
 
     public bool isActive = true;
 
-    //追加
     CharacterParameterBase characterParameter;
 
     private void Awake()
     {
         characterAnimator = this.gameObject.GetComponentInChildren<Animator>();
-
-        //仮追加
-        CharacterParameterBase characterParameter = GetComponent<CharacterParameterBase>();
+        characterParameter = GetComponent<CharacterParameterBase>();
     }
 
     public virtual void Update()
@@ -55,8 +52,7 @@ public class CharacterBase : MonoBehaviour
         {
             return;
         }
-
-        if (characterParameter.isDead())
+        if (characterParameter.GetHitPoint <= 0)
         {
             if (isEnemy)
             {
@@ -64,7 +60,7 @@ public class CharacterBase : MonoBehaviour
                 //Deadのアニメーションをたたいて
                 characterAnimator.SetBool(Die, true);
                 characterAnimator.SetTrigger("Clicked");
-                
+
                 //アニメーションが終わったら消える
             }
             else
@@ -79,8 +75,11 @@ public class CharacterBase : MonoBehaviour
 
                 return;
             }
+
         }
-       
+
+
+
         var FloorToIntPos = Vector3Int.FloorToInt(this.transform.position);
 
         if (this.transform.position != FloorToIntPos)
@@ -141,9 +140,9 @@ public class CharacterBase : MonoBehaviour
             AnimationExecution(Attack, characterDirection);
             IsAttack = false;
         }
-        
+
         animationNormalizedTime = characterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-       
+
     }
 
     //継承先が限定しているとき（publicでもできるけど…）
@@ -159,7 +158,7 @@ public class CharacterBase : MonoBehaviour
     }
 
 
-    private void AnimationExecution(string animationName,Vector3Int direction)
+    private void AnimationExecution(string animationName, Vector3Int direction)
     {
         currentAnimationName = animationName;
         characterAnimator.SetBool(animationName, true);
@@ -170,7 +169,8 @@ public class CharacterBase : MonoBehaviour
         {
             StartCoroutine(AttackAnimationExecution());
         }
-        else {// ただの移動なら攻撃のモーションを即座にキャンセル
+        else
+        {// ただの移動なら攻撃のモーションを即座にキャンセル
             characterAnimator.SetBool(Attack, false);
             characterAnimator.SetTrigger("Clicked");
         }
