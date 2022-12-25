@@ -15,7 +15,11 @@ public class NextStagePos : MonoBehaviour
         if (collision.gameObject.layer == playerLayer)
         {
             DungeonScoreManager.Instance.AddDungeonScore(5);
+
+            DungeonMemoryManager.Instance.SetPlayerParameter(collision.gameObject.GetComponent<CharacterParameterBase>());
+
             DungeonHierarchyCounter.Instance.DungeonhierarchyCountUP();
+
             SceneTranditionManager.Instance.SceneLoad("SampleScene");
         }
     }
