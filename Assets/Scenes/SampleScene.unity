@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BGMClips:
+  - {fileID: 8300000, guid: 9e09e0c2c9f150b41b82097d10647e9b, type: 3}
   - {fileID: 8300000, guid: 7600417249a8ad94b95702cb453a7f7e, type: 3}
-  - {fileID: 8300000, guid: 7600417249a8ad94b95702cb453a7f7e, type: 3}
-  - {fileID: 8300000, guid: 7600417249a8ad94b95702cb453a7f7e, type: 3}
+  - {fileID: 8300000, guid: 9e09e0c2c9f150b41b82097d10647e9b, type: 3}
   SEClips:
   - {fileID: 8300000, guid: 5064c22e120f1a1429ec4c00487b1b09, type: 3}
 --- !u!4 &135512920
